@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private int score=0;
     private int maxTentative=6;
     private List<String> listHistoric = new ArrayList<>();
-
+    private ArrayAdapter<String> model;
 
 
     @Override
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         textViewIndication = findViewById(R.id.textViewIndication);
 
         listViewHistoric = findViewById(R.id.listViewHistoric);
+        model = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,listHistoric);
+        listViewHistoric.setAdapter(model);
 
 
         this.initialize();
@@ -70,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
                 counter++;
                 textViewTentative.setText(String.valueOf(counter));
                 progressBar.setProgress(counter);
+
+                //handle historic
+                listHistoric.add(counter +" => "+number);
+                model.notifyDataSetChanged();   //each time we change the array list we should inform the view that data has been changed
+
             }
 
         });
@@ -83,7 +91,9 @@ public class MainActivity extends AppCompatActivity {
         textViewTentative.setText(String.valueOf(counter));
         progressBar.setProgress(counter);
         progressBar.setMax(maxTentative);
-        textViewIndication.setText("entrer une valeur");
+        textViewIndication.setText("entrer un nombre");
+        listHistoric.clear();model.notifyDataSetChanged();
+
     }
     private void rejouer(){
         Log.i("MyLog","Rejouer...");

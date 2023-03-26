@@ -12,5 +12,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:buttonStyle">@style/myButtonStyle</item>
     </style>
+            <!--  Personalize styles  -->
+   <style name="myButtonStyle" parent="android:Widget.Button">
+        <item name="android:background">@drawable/formes</item>
+        <item name="android:textColor">@color/colorStyle1</item>
+       <item name="android:padding">10dp</item>
+   </style>
 </resources>
